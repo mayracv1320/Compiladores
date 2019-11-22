@@ -1,0 +1,56 @@
+package compiladores;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal coment_1,coment_2,id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,
+    id19,id20,id21,id22,id23,id24,id25,id26,T_dato,SENTEN,
+    ELLIPSIS,COLONCOLON,DOTSTAR,ADDEQ,SUBEQ,MULEQ,DIVEQ,MODEQ,XOREQ,ANDEQ,OREQ,SL,SR,
+    SLEQ,EQ,NOTEQ,LTEQ,GTEQ,ANDAND,OROR,PLUSPLUS,MINUSMINUS,ARROWSTAR,
+    ARROW,ASM,BREAK,CASE,CATCH,CLASS,CONST,CONST_CAST,CONTINUE,
+    DEFAULT,DELETE,DO,DYNAMIC_CAST,ELSE,EXPLICIT,EXPORT,EXTERN,FALSE,SREQ,
+    FOR,FRIEND,GOTO,IF,INLINE,MUTABLE,NAMESPACE,NEW,OPERATOR,PRIVATE,
+    PROTECTED,PUBLIC,REGISTER,REINTERPRET_CAST,RETURN,SIGNED,SIZEOF,STATIC,
+
+    STATIC_CAST,STRUCT,SWITCH,TEMPLATE,THIS,THROW,TRUE,TRY,TYPEDEF,TYPEID,TYPENAME,
+    UNION,UNSIGNED,USING,VIRTUAL,VOID,VOLATILE,WCHAR_T,WHILE,ident,numero,Main,Linea,ERROR;
+non terminal INI, INICIO, SENTENCIA, DECLARACION , CICLO_FOR , CICLO_IF , CICLO_SWITCH, CICLO_CASE;
+
+start with INI;
+
+INI ::= 
+
+INICIO      ::= T_dato Main id5 id6 id1 SENTENCIA RETURN numero id7 id2 |
+                T_dato Main id5 id6 id1 RETURN numero id7 id2
+;
+ 
+SENTENCIA   ::= SENTENCIA DECLARACION | SENTENCIA CICLO_FOR | DECLARACION | CICLO_FOR| SENTENCIA CICLO_IF | CICLO_IF | CICLO_SWITCH | SENTENCIA CICLO_SWITCH
+;
+
+DECLARACION ::= T_dato ident id7
+;
+
+CICLO_FOR ::= FOR id5 T_dato ident id22 numero id7 ident SENTEN ident id7 ident PLUSPLUS id6 id1 SENTENCIA id2 | FOR id5 T_dato ident id22 numero id7 ident SENTEN ident id7 ident PLUSPLUS id6 id1 id2
+; 
+
+CICLO_IF ::= IF id5 numero SENTEN numero id6 id1  SENTENCIA  id2 | IF id5 numero SENTEN numero id6 id1  id2
+;
+
+CICLO_CASE ::= CASE numero id8 SENTENCIA  BREAK id7
+;
+
+CICLO_SWITCH ::= SWITCH  id5 ident id6 id1 CICLO_CASE  id2
+;
+
